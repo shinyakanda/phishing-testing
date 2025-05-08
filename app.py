@@ -5,6 +5,28 @@ import openai
 import os
 from dotenv import load_dotenv
 from io import BytesIO
+import streamlit as st
+import os
+from dotenv import load_dotenv
+
+# .env 読み込み（ローカル用）
+load_dotenv()
+CORRECT_PASSWORD = os.getenv("APP_PASSWORD")
+
+# 認証状態管理
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.title("🔐 パスワードで認証してください")
+    password = st.text_input("パスワードを入力", type="password")
+    if st.button("ログイン"):
+        if password == CORRECT_PASSWORD:
+            st.session_state.authenticated = True
+            st.success("ログインに成功しました！")
+        else:
+            st.error("パスワードが違います。")
+    st.stop()
 
 # .envからAPIキーを読み込み
 load_dotenv()
