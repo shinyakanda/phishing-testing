@@ -1,0 +1,10 @@
+# 仮想環境（venv）を除外
+venv/
+
+# 機密ファイルを除外
+.env
+.streamlit/secrets.toml
+
+# Pythonキャッシュなども除外
+__pycache__/
+*.pyc
