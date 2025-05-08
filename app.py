@@ -9,7 +9,9 @@ from io import BytesIO
 # .envからAPIキーを読み込み
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
-client = openai.OpenAI(api_key=api_key)  # v1.0のクライアント生成
+
+# 新しいクライアントクラスを使う
+client = openai.OpenAI(api_key=api_key)
 
 st.title("🔍 フィッシングサイト診断ツール（ChatGPT API）")
 uploaded_file = st.file_uploader("📤 URL一覧のExcelファイルをアップロードしてください", type=["xlsx"])
