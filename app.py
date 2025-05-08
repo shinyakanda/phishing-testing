@@ -9,9 +9,7 @@ from io import BytesIO
 # .envからAPIキーを読み込み
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
-
-# 新しいクライアントクラスを使う
-client = openai.OpenAI(api_key=api_key)
+openai.api_key = api_key  # v1系ではこの方法が正解
 
 st.title("🔍 フィッシングサイト診断ツール（ChatGPT API）")
 uploaded_file = st.file_uploader("📤 URL一覧のExcelファイルをアップロードしてください", type=["xlsx"])
@@ -42,11 +40,11 @@ HTML（一部）: {html}
 """
 
             try:
-                res = client.chat.completions.create(
+                response = openai.chat.completions.create(
                     model="gpt-4o",
                     messages=[{"role": "user", "content": prompt}]
                 )
-                result_text = res.choices[0].message.content.strip()
+                result_text = response.choices[0].message["content"].strip()
             except Exception as e:
                 result_text = f"エラー: {e}"
 
