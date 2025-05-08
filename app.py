@@ -44,7 +44,7 @@ HTML（一部）: {html}
                     model="gpt-4o",
                     messages=[{"role": "user", "content": prompt}]
                 )
-                result_text = response.choices[0].message["content"].strip()
+                result_text = response.choices[0].message.content.strip()
             except Exception as e:
                 result_text = f"エラー: {e}"
 
